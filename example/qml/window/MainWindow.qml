@@ -32,6 +32,7 @@ FluWindow {
         id:viewmodel_settings
     }
 
+    //更新触发
     FluEvent{
         id:event_checkupdate
         name: "checkUpdate"
@@ -40,10 +41,12 @@ FluWindow {
         }
     }
 
+    //初次打开
     onFirstVisible: {
         timer_tour_delay.restart()
     }
 
+    //导览触发
     Timer{
         id:timer_tour_delay
         interval: 200
@@ -52,15 +55,18 @@ FluWindow {
         }
     }
 
+    //构造
     Component.onCompleted: {
         checkUpdate(true)
         FluEventBus.registerEvent(event_checkupdate)
     }
 
+    //析构
     Component.onDestruction: {
         FluEventBus.unRegisterEvent(event_checkupdate)
     }
 
+    //Icon设置
     SystemTrayIcon {
         id:system_tray
         visible: true
@@ -84,6 +90,7 @@ FluWindow {
             }
     }
 
+    //最小化提示
     Timer{
         id:timer_window_hide_delay
         interval: 150
@@ -92,6 +99,7 @@ FluWindow {
         }
     }
 
+    //退出程序提示
     FluContentDialog{
         id:dialog_close
         title:"退出"
@@ -124,6 +132,7 @@ FluWindow {
         }
     }
 
+    //[核心]翻转的界面
     Flipable{
         id:flipable
         anchors.fill: parent
@@ -242,6 +251,7 @@ FluWindow {
         }
     }
 
+    //主题切换动画
     Component{
         id:com_reveal
         CircularReveal{
@@ -258,6 +268,7 @@ FluWindow {
         }
     }
 
+    //主题切换动效加载器
     FluLoader{
         id:loader_reveal
         anchors.fill: parent
@@ -285,6 +296,7 @@ FluWindow {
         }
     }
 
+    //修改主题夜间主题
     function changeDark(){
         if(FluTheme.dark){
             FluTheme.darkMode = FluThemeType.Light
@@ -293,6 +305,7 @@ FluWindow {
         }
     }
 
+    //快捷键F5 loader刷新
     Shortcut {
         sequence: "F5"
         context: Qt.WindowShortcut
@@ -303,6 +316,7 @@ FluWindow {
         }
     }
 
+    //快捷键F6 打开用户指示导览
     Shortcut {
         sequence: "F6"
         context: Qt.WindowShortcut
@@ -311,6 +325,7 @@ FluWindow {
         }
     }
 
+    //导览 - 隐藏彩蛋
     FluTour{
         id:tour
         steps:{
@@ -323,10 +338,12 @@ FluWindow {
         }
     }
 
+    //Fps_item
     FpsItem{
         id:fps_item
     }
 
+    //Fps
     FluText{
         text:"fps %1".arg(fps_item.fps)
         opacity: 0.3
@@ -338,6 +355,7 @@ FluWindow {
         }
     }
 
+    //升级提示
     FluContentDialog{
         property string newVerson
         property string body
